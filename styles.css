@@ -1,0 +1,1500 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    color: #1d1d1f;
+    line-height: 1.4;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header Styles */
+header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    color: #1d1d1f;
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #1d1d1f;
+    letter-spacing: -0.02em;
+}
+
+.header-content p {
+    font-size: 1rem;
+    color: #86868b;
+    font-weight: 400;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    padding: 0 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tab-navigation::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-btn {
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: #424245;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 0.25rem 0.125rem;
+    white-space: nowrap;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.tab-btn::before {
+    content: attr(data-symbol);
+    margin-right: 0.375rem;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.tab-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #1d1d1f;
+}
+
+.tab-btn.active {
+    color: #007aff;
+    background: rgba(0, 122, 255, 0.1);
+    font-weight: 500;
+}
+
+.tab-btn.active::before {
+    opacity: 1;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Main Container */
+.calculator-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 0.75rem;
+}
+
+/* Calculator Sections */
+.calc-section {
+    background: #ffffff;
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.calc-section:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+}
+
+.calc-section h2 {
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Display */
+.display {
+    margin-bottom: 1rem;
+}
+
+.display input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-align: right;
+    border: 2px solid #e5e5e7;
+    border-radius: 10px;
+    background: #f6f6f6;
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', monospace;
+    font-weight: 400;
+    transition: all 0.2s ease;
+}
+
+.display input:focus {
+    outline: none;
+    border-color: #007aff;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* Button Grid */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.btn {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #f6f6f6;
+    color: #1d1d1f;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+    background: #e8e8ed;
+    transform: scale(1.02);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn.number {
+    background: #f6f6f6;
+    color: #1d1d1f;
+}
+
+.btn.number:hover {
+    background: #e8e8ed;
+}
+
+.btn.operator {
+    background: #ff9500;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.btn.operator:hover {
+    background: #e6851e;
+}
+
+.btn.equals {
+    background: #007aff;
+    color: #ffffff;
+    grid-row: span 2;
+    font-weight: 500;
+}
+
+.btn.equals:hover {
+    background: #0056cc;
+}
+
+.btn.clear {
+    background: #ff3b30;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.btn.clear:hover {
+    background: #d70015;
+}
+
+.btn.span-2 {
+    grid-column: span 2;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+    color: #424245;
+    font-size: 0.85rem;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 2px solid #e5e5e7;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    background: #ffffff;
+    color: #1d1d1f;
+    font-family: inherit;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* Buttons */
+button {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 10px;
+    background: #007aff;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+    background: #0056cc;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 122, 255, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Secondary Button Style */
+.calc-section button:not(.btn) {
+    background: #007aff;
+    color: #ffffff;
+}
+
+.calc-section button:not(.btn):hover {
+    background: #0056cc;
+}
+
+/* Function Buttons */
+.function-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 6px;
+    margin-top: 0.75rem;
+}
+
+.function-buttons button {
+    padding: 0.375rem;
+    font-size: 0.8rem;
+    background: #f6f6f6;
+    color: #1d1d1f;
+    border-radius: 6px;
+}
+
+.function-buttons button:hover {
+    background: #e8e8ed;
+}
+
+/* Results Display */
+.result-display,
+.stats-results,
+.finance-results,
+.solution-display,
+.base-results,
+#bitwiseResult,
+#truthTable,
+#dateResult,
+#bmiResult,
+#tipResult,
+#formulaDisplay,
+#stepSolution {
+    background: #f6f6f6;
+    border: 2px solid #e5e5e7;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', monospace;
+    min-height: 50px;
+    color: #1d1d1f;
+    font-size: 0.85rem;
+}
+
+/* Grid Results */
+.stats-grid,
+.finance-result,
+.date-calculation,
+.bmi-result,
+.tip-calculation,
+.base-conversion-results,
+.bitwise-result {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+}
+
+.stats-grid > div,
+.finance-result > div,
+.date-calculation > div,
+.bmi-result > div,
+.tip-calculation > div,
+.base-conversion-results > div,
+.bitwise-result > div {
+    padding: 0.75rem;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    font-size: 0.8rem;
+}
+
+/* Formula Display */
+.formula-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.formula-item {
+    padding: 1rem;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.formula-item h4 {
+    color: #1d1d1f;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.formula {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', serif;
+    font-size: 1rem;
+    color: #424245;
+    background: #f6f6f6;
+    padding: 0.75rem;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* Canvas Styling */
+canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-top: 0.75rem;
+    border: 1px solid #e5e5e7;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Footer */
+footer {
+    background: #f6f6f6;
+    color: #86868b;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #e5e5e7;
+    font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Color Classes */
+.highlight {
+    background: rgba(0, 122, 255, 0.1);
+    padding: 0.2rem 0.375rem;
+    border-radius: 4px;
+    color: #007aff;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.success {
+    color: #30d158;
+    font-weight: 500;
+}
+
+.error {
+    color: #ff3b30;
+    font-weight: 500;
+}
+
+.info {
+    color: #007aff;
+    font-weight: 500;
+}
+
+.warning {
+    color: #ff9500;
+    font-weight: 500;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #e5e5e7;
+    border-radius: 50%;
+    border-top-color: #007aff;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d1d1f;
+    color: #ffffff;
+    padding: 0.375rem 0.625rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* Advanced Controls and Other Layouts */
+.advanced-controls,
+.solver-controls,
+.stats-input,
+.finance-inputs,
+.science-category,
+.converter-controls,
+.graph-controls,
+.chart-controls,
+.base-converter,
+.bitwise-ops,
+.logic-gates,
+.date-calc,
+.bmi-calc,
+.tip-calc,
+.formula-categories,
+.step-solver {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Equation Inputs */
+.equation-inputs {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.equation-inputs input {
+    flex: 1;
+    min-width: 80px;
+}
+
+/* Conversion Inputs */
+.conversion-inputs {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.conversion-inputs span {
+    font-weight: 500;
+    color: #86868b;
+    font-size: 0.85rem;
+}
+
+/* Range Controls */
+.range-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.range-controls label {
+    font-weight: 500;
+    color: #86868b;
+    font-size: 0.85rem;
+}
+
+/* Data Input */
+.data-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Bitwise Buttons */
+.bitwise-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 6px;
+}
+
+.bitwise-buttons button {
+    padding: 0.375rem;
+    background: #f6f6f6;
+    color: #1d1d1f;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.bitwise-buttons button:hover {
+    background: #e8e8ed;
+}
+
+/* Logic Controls */
+.logic-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 6px;
+}
+
+.logic-controls button {
+    background: #f6f6f6;
+    color: #1d1d1f;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.logic-controls button:hover {
+    background: #e8e8ed;
+}
+
+/* Truth Table */
+#truthTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75rem;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    font-size: 0.8rem;
+}
+
+#truthTable th,
+#truthTable td {
+    border: 1px solid #e5e5e7;
+    padding: 0.5rem;
+    text-align: center;
+    color: #1d1d1f;
+}
+
+#truthTable th {
+    background: #f6f6f6;
+    color: #424245;
+    font-weight: 600;
+}
+
+/* BMI Scale */
+.bmi-scale {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: #f6f6f6;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.bmi-scale > div {
+    margin: 0.2rem 0;
+    color: #86868b;
+}
+
+/* Step Solution */
+.step-solution {
+    padding: 0.75rem;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    margin: 0.375rem 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.step-solution h4 {
+    color: #1d1d1f;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.step-solution > div {
+    margin: 0.375rem 0;
+    color: #424245;
+    font-size: 0.85rem;
+}
+
+/* Matrix Operations Styles */
+.matrix-operations {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.matrix-input-section {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.matrix-input-section h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.matrix-size-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.matrix-size-controls input {
+    width: 60px;
+}
+
+.matrix-grid {
+    display: grid;
+    gap: 4px;
+    margin-top: 0.75rem;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.matrix-grid input {
+    width: 50px;
+    height: 35px;
+    text-align: center;
+    border: 2px solid #e5e5e7;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    background: #ffffff;
+}
+
+.matrix-grid input:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.matrix-operations-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+
+.matrix-result {
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Matrix Display Styles */
+.matrix-display {
+    margin: 0.75rem 0;
+    overflow-x: auto;
+}
+
+.matrix-row {
+    display: flex;
+    gap: 6px;
+    margin: 4px 0;
+}
+
+.matrix-cell {
+    display: inline-block;
+    min-width: 50px;
+    padding: 6px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+
+/* Complex Numbers Styles */
+.complex-operations {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.complex-input-group {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.complex-input-group h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.complex-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-wrap: wrap;
+}
+
+.complex-inputs input {
+    width: 100px;
+}
+
+.complex-inputs span {
+    font-weight: 500;
+    color: #424245;
+    font-size: 0.9rem;
+}
+
+.complex-operations-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.75rem;
+}
+
+/* Complex Result Value */
+.complex-result-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #007aff;
+    background: #ffffff;
+    padding: 0.75rem;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0.375rem 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Advanced Statistics Styles */
+.advanced-stats-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stats-operations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+}
+
+/* Scientific Computing Styles */
+.scientific-computing-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.numerical-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.method-group {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.method-group h3 {
+    margin-bottom: 0.75rem;
+    color: #1d1d1f;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.integration-inputs,
+.differentiation-inputs,
+.root-finding-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.integration-inputs input,
+.differentiation-inputs input,
+.root-finding-inputs input {
+    width: 100%;
+}
+
+/* Currency Converter Styles */
+.currency-converter {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.currency-selectors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.currency-from,
+.currency-to {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.currency-input-group {
+    margin-bottom: 0.75rem;
+}
+
+.exchange-rates {
+    background: #f6f6f6;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+}
+
+/* Currency and Crypto Result Values */
+.currency-result-value,
+.crypto-result-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #30d158;
+    background: rgba(48, 209, 88, 0.1);
+    padding: 0.75rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0.75rem 0;
+}
+
+/* Cryptocurrency Styles */
+.crypto-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.crypto-converter,
+.profit-loss-calculator {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.crypto-converter h3,
+.profit-loss-calculator h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.crypto-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.crypto-inputs input {
+    width: 80px;
+}
+
+.crypto-inputs select {
+    min-width: 120px;
+}
+
+.crypto-inputs span {
+    color: #86868b;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.pnl-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* PnL Breakdown */
+.pnl-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pnl-breakdown > div {
+    padding: 0.5rem;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 6px;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    font-size: 0.85rem;
+}
+
+/* Advanced Physics Styles */
+.advanced-physics-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.physics-inputs {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.calculation-type {
+    margin-bottom: 0.75rem;
+}
+
+.physics-params {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+/* Stats, Physics, and Science Results */
+.stats-result,
+.physics-result,
+.sci-result {
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    padding: 0.75rem;
+    margin: 0.375rem 0;
+    font-family: monospace;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    font-size: 0.85rem;
+}
+
+/* Chemistry Database Styles */
+.chemistry-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.periodic-table-container {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.periodic-table-container h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 1px;
+    margin: 0.75rem 0;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.element {
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 6px;
+    padding: 6px 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 35px;
+    font-size: 0.7rem;
+}
+
+.element:hover {
+    background: #007aff;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.element-symbol {
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.element-number {
+    font-size: 0.6rem;
+    color: #86868b;
+}
+
+.element-info {
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.element-info h4 {
+    color: #1d1d1f;
+    margin-bottom: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.element-info p {
+    color: #424245;
+    font-size: 0.85rem;
+}
+
+.chemistry-calculators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.chem-calc {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.chem-calc h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.solution-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* 3D Graphics Styles */
+.threejs-plotting-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.threejs-function-inputs {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.range-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0.75rem 0;
+}
+
+.range-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.range-group input {
+    width: 100%;
+}
+
+.plot-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.threejs-container {
+    width: 100%;
+    height: 400px;
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Export Tools Styles */
+.export-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.export-calculations,
+.calculation-history,
+.share-tools {
+    background: #f6f6f6;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.export-calculations h3,
+.calculation-history h3,
+.share-tools h3 {
+    color: #1d1d1f;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.export-options,
+.history-controls,
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.export-options button,
+.history-controls button,
+.share-options button {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    justify-content: center;
+    background: #f6f6f6;
+    color: #1d1d1f;
+    font-size: 0.8rem;
+}
+
+.export-options button:hover,
+.history-controls button:hover,
+.share-options button:hover {
+    background: #e8e8ed;
+}
+
+.history-display {
+    background: #ffffff;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    padding: 0.75rem;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.history-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e5e5e7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-timestamp {
+    font-size: 0.7rem;
+    color: #86868b;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .calculator-container {
+        max-width: 100%;
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .numerical-methods,
+    .chemistry-calculators {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .periodic-table {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header-content p {
+        font-size: 0.9rem;
+    }
+    
+    .tab-btn {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    .calc-section {
+        padding: 1rem;
+        margin: 0.75rem 0;
+    }
+    
+    .calc-section h2 {
+        font-size: 1.1rem;
+    }
+    
+    .button-grid {
+        max-width: 280px;
+        gap: 6px;
+    }
+    
+    .btn {
+        padding: 0.625rem;
+        font-size: 0.9rem;
+        min-height: 45px;
+    }
+    
+    .display input {
+        font-size: 1.25rem;
+        padding: 0.75rem;
+    }
+    
+    .equation-inputs,
+    .conversion-inputs,
+    .range-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    canvas {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .matrix-operations-buttons,
+    .complex-operations-buttons,
+    .stats-operations {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .currency-selectors {
+        grid-template-columns: 1fr;
+    }
+    
+    .crypto-inputs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .crypto-inputs input,
+    .crypto-inputs select {
+        width: 100%;
+    }
+    
+    .range-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    .plot-controls {
+        flex-direction: column;
+    }
+    
+    .export-options,
+    .history-controls,
+    .share-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .periodic-table {
+        grid-template-columns: repeat(9, 1fr);
+        font-size: 0.6rem;
+    }
+    
+    .element {
+        min-width: 25px;
+        padding: 4px 2px;
+        font-size: 0.6rem;
+    }
+    
+    .threejs-container {
+        height: 250px;
+    }
+    
+    .function-buttons {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .calculator-container {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .calc-section {
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+    }
+    
+    .button-grid {
+        max-width: 260px;
+        gap: 4px;
+    }
+    
+    .btn {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        min-height: 40px;
+    }
+    
+    .function-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .bitwise-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .logic-controls {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .matrix-operations-buttons,
+    .complex-operations-buttons,
+    .stats-operations {
+        grid-template-columns: 1fr;
+    }
+    
+    .numerical-methods,
+    .chemistry-calculators {
+        grid-template-columns: 1fr;
+    }
+    
+    .complex-inputs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .complex-inputs input {
+        width: 100%;
+    }
+    
+    .matrix-size-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .matrix-size-controls input {
+        width: 100%;
+    }
+    
+    .matrix-grid input {
+        width: 40px;
+        height: 30px;
+    }
+    
+    .tab-btn::before {
+        display: none;
+    }
+    
+    .tab-btn {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.625rem;
+    }
+    
+    .threejs-container {
+        height: 200px;
+    }
+}
+
+/* Placeholder for missing functions */
+.placeholder-function {
+    background: rgba(255, 149, 0, 0.1);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    border-radius: 10px;
+    padding: 0.75rem;
+    text-align: center;
+    color: #ff9500;
+    font-style: italic;
+    font-size: 0.85rem;
+} 
