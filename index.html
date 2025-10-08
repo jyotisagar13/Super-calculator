@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supercalc - Advanced Calculator Suite</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Supercalc</h1>
+            <p>Advanced Mathematical Computing Suite</p>
+        </div>
+    </header>
+
+    <nav class="tab-navigation">
+        <button class="tab-btn active" data-tab="basic" data-symbol="∑">Basic Math</button>
+        <button class="tab-btn" data-tab="statistics" data-symbol="σ">Statistics</button>
+        <button class="tab-btn" data-tab="finance" data-symbol="₹">Finance</button>
+        <button class="tab-btn" data-tab="science" data-symbol="⚛">Science</button>
+        <button class="tab-btn" data-tab="graphs" data-symbol="∫">Graphs</button>
+        <button class="tab-btn" data-tab="programming" data-symbol="∀">Programming</button>
+        <button class="tab-btn" data-tab="utilities" data-symbol="∴">Utilities</button>
+        <button class="tab-btn" data-tab="education" data-symbol="∇">Education</button>
+        <button class="tab-btn" data-tab="matrix" data-symbol="⊗">Matrix</button>
+        <button class="tab-btn" data-tab="complex" data-symbol="i">Complex</button>
+        <button class="tab-btn" data-tab="advanced-stats" data-symbol="χ²">Adv Stats</button>
+        <button class="tab-btn" data-tab="scientific-computing" data-symbol="∂">Sci Computing</button>
+        <button class="tab-btn" data-tab="currency" data-symbol="€">Currency</button>
+        <button class="tab-btn" data-tab="crypto" data-symbol="₿">Crypto</button>
+        <button class="tab-btn" data-tab="advanced-physics" data-symbol="ℏ">Adv Physics</button>
+        <button class="tab-btn" data-tab="chemistry-db" data-symbol="⚗">Chemistry</button>
+        <button class="tab-btn" data-tab="3d-graphs" data-symbol="∰">3D Graphs</button>
+        <button class="tab-btn" data-tab="export" data-symbol="∞">Export</button>
+    </nav>
+
+    <main class="calculator-container">
+        <!-- Basic Math Calculator -->
+        <div id="basic" class="tab-content active">
+            <div class="calc-section">
+                <h2>Basic Calculator</h2>
+                <div class="display">
+                    <input type="text" id="basicDisplay" readonly placeholder="0">
+                </div>
+                <div class="button-grid">
+                    <button class="btn clear" onclick="clearBasic()">C</button>
+                    <button class="btn clear" onclick="clearEntryBasic()">CE</button>
+                    <button class="btn operator" onclick="appendBasic('/')">/</button>
+                    <button class="btn operator" onclick="appendBasic('*')">×</button>
+                    
+                    <button class="btn number" onclick="appendBasic('7')">7</button>
+                    <button class="btn number" onclick="appendBasic('8')">8</button>
+                    <button class="btn number" onclick="appendBasic('9')">9</button>
+                    <button class="btn operator" onclick="appendBasic('-')">-</button>
+                    
+                    <button class="btn number" onclick="appendBasic('4')">4</button>
+                    <button class="btn number" onclick="appendBasic('5')">5</button>
+                    <button class="btn number" onclick="appendBasic('6')">6</button>
+                    <button class="btn operator" onclick="appendBasic('+')">+</button>
+                    
+                    <button class="btn number" onclick="appendBasic('1')">1</button>
+                    <button class="btn number" onclick="appendBasic('2')">2</button>
+                    <button class="btn number" onclick="appendBasic('3')">3</button>
+                    <button class="btn equals" onclick="calculateBasic()" rowspan="2">=</button>
+                    
+                    <button class="btn number span-2" onclick="appendBasic('0')">0</button>
+                    <button class="btn number" onclick="appendBasic('.')">.</button>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Advanced Math</h2>
+                <div class="advanced-controls">
+                    <div class="input-group">
+                        <label>Expression:</label>
+                        <input type="text" id="advancedInput" placeholder="Enter mathematical expression">
+                        <button onclick="calculateAdvanced()">Calculate</button>
+                    </div>
+                    <div class="result-display" id="advancedResult"></div>
+                </div>
+                
+                <div class="function-buttons">
+                    <button onclick="insertFunction('sqrt(')">√</button>
+                    <button onclick="insertFunction('pow(', ',)')">x^y</button>
+                    <button onclick="insertFunction('factorial(')">n!</button>
+                    <button onclick="insertFunction('sin(')">sin</button>
+                    <button onclick="insertFunction('cos(')">cos</button>
+                    <button onclick="insertFunction('tan(')">tan</button>
+                    <button onclick="insertFunction('log(')">log</button>
+                    <button onclick="insertFunction('ln(')">ln</button>
+                    <button onclick="insertFunction('exp(')">e^x</button>
+                    <button onclick="insertFunction('abs(')">|x|</button>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Equation Solver</h2>
+                <div class="solver-controls">
+                    <select id="equationType">
+                        <option value="linear">Linear Equation (ax + b = 0)</option>
+                        <option value="quadratic">Quadratic Equation (ax² + bx + c = 0)</option>
+                    </select>
+                    
+                    <div id="linearInputs" class="equation-inputs">
+                        <input type="number" id="linearA" placeholder="a">
+                        <input type="number" id="linearB" placeholder="b">
+                        <button onclick="solveLinear()">Solve</button>
+                    </div>
+                    
+                    <div id="quadraticInputs" class="equation-inputs" style="display: none;">
+                        <input type="number" id="quadA" placeholder="a">
+                        <input type="number" id="quadB" placeholder="b">
+                        <input type="number" id="quadC" placeholder="c">
+                        <button onclick="solveQuadratic()">Solve</button>
+                    </div>
+                    
+                    <div class="solution-display" id="solutionResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Calculator -->
+        <div id="statistics" class="tab-content">
+            <div class="calc-section">
+                <h2>Statistical Analysis</h2>
+                <div class="stats-input">
+                    <label>Enter data (comma-separated):</label>
+                    <textarea id="statsData" placeholder="1, 2, 3, 4, 5"></textarea>
+                    <button onclick="calculateStats()">Analyze</button>
+                </div>
+                <div class="stats-results" id="statsResults"></div>
+            </div>
+            
+            <div class="calc-section">
+                <h2>Probability & Distributions</h2>
+                <div class="probability-controls">
+                    <select id="distributionType">
+                        <option value="normal">Normal Distribution</option>
+                        <option value="binomial">Binomial Distribution</option>
+                        <option value="poisson">Poisson Distribution</option>
+                    </select>
+                    <div id="distributionInputs"></div>
+                    <div id="distributionResults"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finance Calculator -->
+        <div id="finance" class="tab-content">
+            <div class="calc-section">
+                <h2>SIP Calculator</h2>
+                <div class="finance-inputs">
+                    <div class="input-group">
+                        <label>Monthly Investment (₹):</label>
+                        <input type="number" id="sipAmount" placeholder="5000">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Return Rate (%):</label>
+                        <input type="number" id="sipRate" placeholder="12">
+                    </div>
+                    <div class="input-group">
+                        <label>Investment Period (years):</label>
+                        <input type="number" id="sipYears" placeholder="10">
+                    </div>
+                    <button onclick="calculateSIP()">Calculate SIP</button>
+                </div>
+                <div class="finance-results" id="sipResults"></div>
+            </div>
+
+            <div class="calc-section">
+                <h2>EMI Calculator</h2>
+                <div class="finance-inputs">
+                    <div class="input-group">
+                        <label>Loan Amount (₹):</label>
+                        <input type="number" id="loanAmount" placeholder="1000000">
+                    </div>
+                    <div class="input-group">
+                        <label>Interest Rate (% per annum):</label>
+                        <input type="number" id="loanRate" placeholder="8.5">
+                    </div>
+                    <div class="input-group">
+                        <label>Loan Tenure (years):</label>
+                        <input type="number" id="loanTenure" placeholder="20">
+                    </div>
+                    <button onclick="calculateEMI()">Calculate EMI</button>
+                </div>
+                <div class="finance-results" id="emiResults"></div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Compound Interest</h2>
+                <div class="finance-inputs">
+                    <div class="input-group">
+                        <label>Principal Amount (₹):</label>
+                        <input type="number" id="principal" placeholder="100000">
+                    </div>
+                    <div class="input-group">
+                        <label>Interest Rate (% per annum):</label>
+                        <input type="number" id="interestRate" placeholder="8">
+                    </div>
+                    <div class="input-group">
+                        <label>Time Period (years):</label>
+                        <input type="number" id="timePeriod" placeholder="5">
+                    </div>
+                    <div class="input-group">
+                        <label>Compounding Frequency:</label>
+                        <select id="compoundFreq">
+                            <option value="1">Annually</option>
+                            <option value="2">Semi-annually</option>
+                            <option value="4">Quarterly</option>
+                            <option value="12">Monthly</option>
+                            <option value="365">Daily</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateCompoundInterest()">Calculate</button>
+                </div>
+                <div class="finance-results" id="compoundResults"></div>
+            </div>
+        </div>
+
+        <!-- Science Calculator -->
+        <div id="science" class="tab-content">
+            <div class="calc-section">
+                <h2>Physics Calculations</h2>
+                <div class="science-category">
+                    <select id="physicsType">
+                        <option value="motion">Motion & Kinematics</option>
+                        <option value="force">Force & Newton's Laws</option>
+                        <option value="energy">Energy & Work</option>
+                        <option value="thermodynamics">Thermodynamics</option>
+                    </select>
+                    <div id="physicsInputs"></div>
+                    <div id="physicsResults"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Chemistry Calculations</h2>
+                <div class="science-category">
+                    <select id="chemistryType">
+                        <option value="molarmass">Molar Mass</option>
+                        <option value="ph">pH & pOH</option>
+                        <option value="concentration">Concentration</option>
+                        <option value="gaslaws">Gas Laws</option>
+                    </select>
+                    <div id="chemistryInputs"></div>
+                    <div id="chemistryResults"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Unit Converter</h2>
+                <div class="converter-controls">
+                    <select id="unitCategory">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="volume">Volume</option>
+                        <option value="pressure">Pressure</option>
+                    </select>
+                    <div class="conversion-inputs">
+                        <input type="number" id="convertFrom" placeholder="Value">
+                        <select id="fromUnit"></select>
+                        <span>to</span>
+                        <select id="toUnit"></select>
+                        <button onclick="convertUnits()">Convert</button>
+                    </div>
+                    <div id="conversionResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphs Calculator -->
+        <div id="graphs" class="tab-content">
+            <div class="calc-section">
+                <h2>Function Plotter</h2>
+                <div class="graph-controls">
+                    <div class="input-group">
+                        <label>Function (y = ):</label>
+                        <input type="text" id="functionInput" placeholder="x^2 + 2*x + 1">
+                    </div>
+                    <div class="range-controls">
+                        <label>X Range:</label>
+                        <input type="number" id="xMin" value="-10" placeholder="Min">
+                        <input type="number" id="xMax" value="10" placeholder="Max">
+                        <button onclick="plotFunction()">Plot</button>
+                    </div>
+                </div>
+                <canvas id="functionChart" width="600" height="400"></canvas>
+            </div>
+
+            <div class="calc-section">
+                <h2>Data Visualization</h2>
+                <div class="chart-controls">
+                    <select id="chartType">
+                        <option value="line">Line Chart</option>
+                        <option value="bar">Bar Chart</option>
+                        <option value="pie">Pie Chart</option>
+                    </select>
+                    <div class="data-input">
+                        <label>Labels (comma-separated):</label>
+                        <input type="text" id="chartLabels" placeholder="A, B, C, D">
+                        <label>Data (comma-separated):</label>
+                        <input type="text" id="chartData" placeholder="10, 20, 30, 40">
+                        <button onclick="createChart()">Create Chart</button>
+                    </div>
+                </div>
+                <canvas id="dataChart" width="600" height="400"></canvas>
+            </div>
+        </div>
+
+        <!-- Programming Calculator -->
+        <div id="programming" class="tab-content">
+            <div class="calc-section">
+                <h2>Number Base Converter</h2>
+                <div class="base-converter">
+                    <div class="input-group">
+                        <label>Input Number:</label>
+                        <input type="text" id="baseInput" placeholder="Enter number">
+                        <select id="fromBase">
+                            <option value="10">Decimal</option>
+                            <option value="2">Binary</option>
+                            <option value="8">Octal</option>
+                            <option value="16">Hexadecimal</option>
+                        </select>
+                    </div>
+                    <button onclick="convertBases()">Convert</button>
+                    <div class="base-results" id="baseResults"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Bitwise Operations</h2>
+                <div class="bitwise-ops">
+                    <div class="input-group">
+                        <input type="text" id="bitA" placeholder="First number">
+                        <input type="text" id="bitB" placeholder="Second number">
+                    </div>
+                    <div class="bitwise-buttons">
+                        <button onclick="bitwiseOp('AND')">AND</button>
+                        <button onclick="bitwiseOp('OR')">OR</button>
+                        <button onclick="bitwiseOp('XOR')">XOR</button>
+                        <button onclick="bitwiseOp('NOT')">NOT</button>
+                        <button onclick="bitwiseOp('LSHIFT')"><<</button>
+                        <button onclick="bitwiseOp('RSHIFT')">>></button>
+                    </div>
+                    <div id="bitwiseResult"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Boolean Logic</h2>
+                <div class="logic-gates">
+                    <div class="truth-table" id="truthTable"></div>
+                    <div class="logic-controls">
+                        <button onclick="generateTruthTable('AND')">AND Gate</button>
+                        <button onclick="generateTruthTable('OR')">OR Gate</button>
+                        <button onclick="generateTruthTable('XOR')">XOR Gate</button>
+                        <button onclick="generateTruthTable('NAND')">NAND Gate</button>
+                        <button onclick="generateTruthTable('NOR')">NOR Gate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilities Calculator -->
+        <div id="utilities" class="tab-content">
+            <div class="calc-section">
+                <h2>Date Calculator</h2>
+                <div class="date-calc">
+                    <div class="input-group">
+                        <label>Start Date:</label>
+                        <input type="date" id="startDate">
+                        <label>End Date:</label>
+                        <input type="date" id="endDate">
+                        <button onclick="calculateDateDiff()">Calculate Difference</button>
+                    </div>
+                    <div id="dateResult"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>BMI Calculator</h2>
+                <div class="bmi-calc">
+                    <div class="input-group">
+                        <label>Weight (kg):</label>
+                        <input type="number" id="weight" placeholder="70">
+                        <label>Height (cm):</label>
+                        <input type="number" id="height" placeholder="175">
+                        <button onclick="calculateBMI()">Calculate BMI</button>
+                    </div>
+                    <div id="bmiResult"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Tip Calculator</h2>
+                <div class="tip-calc">
+                    <div class="input-group">
+                        <label>Bill Amount:</label>
+                        <input type="number" id="billAmount" placeholder="100">
+                        <label>Tip Percentage:</label>
+                        <input type="number" id="tipPercent" placeholder="15">
+                        <label>Number of People:</label>
+                        <input type="number" id="numPeople" placeholder="1">
+                        <button onclick="calculateTip()">Calculate</button>
+                    </div>
+                    <div id="tipResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Calculator -->
+        <div id="education" class="tab-content">
+            <div class="calc-section">
+                <h2>Formula Reference</h2>
+                <div class="formula-categories">
+                    <select id="formulaCategory">
+                        <option value="algebra">Algebra</option>
+                        <option value="geometry">Geometry</option>
+                        <option value="trigonometry">Trigonometry</option>
+                        <option value="calculus">Calculus</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                    </select>
+                    <div id="formulaDisplay"></div>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <h2>Step-by-Step Solver</h2>
+                <div class="step-solver">
+                    <div class="input-group">
+                        <label>Problem Type:</label>
+                        <select id="problemType">
+                            <option value="derivative">Derivative</option>
+                            <option value="integral">Integral</option>
+                            <option value="limit">Limit</option>
+                            <option value="equation">Equation</option>
+                        </select>
+                        <input type="text" id="problemInput" placeholder="Enter problem">
+                        <button onclick="solveStepByStep()">Solve</button>
+                    </div>
+                    <div id="stepSolution"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matrix Operations -->
+        <div id="matrix" class="tab-content">
+            <div class="calc-section">
+                <h2>Matrix Calculator</h2>
+                <div class="matrix-operations">
+                    <div class="matrix-input-section">
+                        <h3>Matrix A</h3>
+                        <div class="matrix-size-controls">
+                            <label>Rows:</label>
+                            <input type="number" id="matrixARows" value="3" min="1" max="10">
+                            <label>Cols:</label>
+                            <input type="number" id="matrixACols" value="3" min="1" max="10">
+                            <button onclick="createMatrixA()">Create Matrix A</button>
+                        </div>
+                        <div id="matrixAGrid" class="matrix-grid"></div>
+                    </div>
+                    
+                    <div class="matrix-input-section">
+                        <h3>Matrix B</h3>
+                        <div class="matrix-size-controls">
+                            <label>Rows:</label>
+                            <input type="number" id="matrixBRows" value="3" min="1" max="10">
+                            <label>Cols:</label>
+                            <input type="number" id="matrixBCols" value="3" min="1" max="10">
+                            <button onclick="createMatrixB()">Create Matrix B</button>
+                        </div>
+                        <div id="matrixBGrid" class="matrix-grid"></div>
+                    </div>
+                    
+                    <div class="matrix-operations-buttons">
+                        <button onclick="addMatrices()">A + B</button>
+                        <button onclick="subtractMatrices()">A - B</button>
+                        <button onclick="multiplyMatrices()">A × B</button>
+                        <button onclick="transposeMatrix('A')">Transpose A</button>
+                        <button onclick="determinantMatrix('A')">Det(A)</button>
+                        <button onclick="inverseMatrix('A')">A⁻¹</button>
+                        <button onclick="eigenvalues('A')">Eigenvalues A</button>
+                    </div>
+                    
+                    <div class="matrix-result" id="matrixResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complex Numbers -->
+        <div id="complex" class="tab-content">
+            <div class="calc-section">
+                <h2>Complex Number Calculator</h2>
+                <div class="complex-operations">
+                    <div class="complex-input-group">
+                        <h3>Complex Number A</h3>
+                        <div class="complex-inputs">
+                            <input type="number" id="complexA_real" placeholder="Real part" value="0">
+                            <span>+</span>
+                            <input type="number" id="complexA_imag" placeholder="Imaginary part" value="0">
+                            <span>i</span>
+                        </div>
+                    </div>
+                    
+                    <div class="complex-input-group">
+                        <h3>Complex Number B</h3>
+                        <div class="complex-inputs">
+                            <input type="number" id="complexB_real" placeholder="Real part" value="0">
+                            <span>+</span>
+                            <input type="number" id="complexB_imag" placeholder="Imaginary part" value="0">
+                            <span>i</span>
+                        </div>
+                    </div>
+                    
+                    <div class="complex-operations-buttons">
+                        <button onclick="addComplex()">A + B</button>
+                        <button onclick="subtractComplex()">A - B</button>
+                        <button onclick="multiplyComplex()">A × B</button>
+                        <button onclick="divideComplex()">A ÷ B</button>
+                        <button onclick="conjugateComplex('A')">Conjugate A</button>
+                        <button onclick="modulusComplex('A')">|A|</button>
+                        <button onclick="argComplex('A')">arg(A)</button>
+                        <button onclick="polarForm('A')">Polar A</button>
+                    </div>
+                    
+                    <div class="complex-result" id="complexResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Statistics -->
+        <div id="advanced-stats" class="tab-content">
+            <div class="calc-section">
+                <h2>Advanced Statistical Analysis</h2>
+                <div class="advanced-stats-section">
+                    <div class="input-group">
+                        <label>Dataset X (comma-separated):</label>
+                        <textarea id="advStatsDataX" placeholder="1, 2, 3, 4, 5"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Dataset Y (comma-separated, for correlation):</label>
+                        <textarea id="advStatsDataY" placeholder="2, 4, 6, 8, 10"></textarea>
+                    </div>
+                    
+                    <div class="stats-operations">
+                        <button onclick="calculateRegression()">Linear Regression</button>
+                        <button onclick="calculateCorrelation()">Correlation</button>
+                        <button onclick="calculateCovariance()">Covariance</button>
+                        <button onclick="calculateZScore()">Z-Scores</button>
+                        <button onclick="confidenceInterval()">Confidence Interval</button>
+                        <button onclick="tTest()">T-Test</button>
+                        <button onclick="chiSquareTest()">Chi-Square Test</button>
+                        <button onclick="anovaTest()">ANOVA</button>
+                    </div>
+                    
+                    <div class="advanced-stats-results" id="advancedStatsResults"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scientific Computing -->
+        <div id="scientific-computing" class="tab-content">
+            <div class="calc-section">
+                <h2>Numerical Methods</h2>
+                <div class="scientific-computing-section">
+                    <div class="input-group">
+                        <label>Function f(x):</label>
+                        <input type="text" id="sciFunction" placeholder="x^2 - 4">
+                    </div>
+                    
+                    <div class="numerical-methods">
+                        <div class="method-group">
+                            <h3>Integration</h3>
+                            <div class="integration-inputs">
+                                <input type="number" id="integralLower" placeholder="Lower bound" value="0">
+                                <input type="number" id="integralUpper" placeholder="Upper bound" value="1">
+                                <button onclick="numericalIntegration()">Simpson's Rule</button>
+                                <button onclick="trapezoidalRule()">Trapezoidal Rule</button>
+                            </div>
+                        </div>
+                        
+                        <div class="method-group">
+                            <h3>Differentiation</h3>
+                            <div class="differentiation-inputs">
+                                <input type="number" id="derivativePoint" placeholder="Point x" value="1">
+                                <input type="number" id="stepSize" placeholder="Step size h" value="0.001">
+                                <button onclick="numericalDerivative()">Numerical Derivative</button>
+                                <button onclick="symbolicDerivative()">Symbolic Derivative</button>
+                            </div>
+                        </div>
+                        
+                        <div class="method-group">
+                            <h3>Root Finding</h3>
+                            <div class="root-finding-inputs">
+                                <input type="number" id="rootInitial" placeholder="Initial guess" value="1">
+                                <input type="number" id="rootTolerance" placeholder="Tolerance" value="0.0001">
+                                <button onclick="newtonRaphson()">Newton-Raphson</button>
+                                <button onclick="bisectionMethod()">Bisection Method</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scientific-computing-results" id="scientificComputingResults"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Currency Converter -->
+        <div id="currency" class="tab-content">
+            <div class="calc-section">
+                <h2>Real-Time Currency Converter</h2>
+                <div class="currency-converter">
+                    <div class="currency-input-group">
+                        <label>Amount:</label>
+                        <input type="number" id="currencyAmount" placeholder="100" value="100">
+                    </div>
+                    
+                    <div class="currency-selectors">
+                        <div class="currency-from">
+                            <label>From:</label>
+                            <select id="currencyFrom">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                            </select>
+                        </div>
+                        
+                        <div class="currency-to">
+                            <label>To:</label>
+                            <select id="currencyTo">
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button onclick="convertCurrency()">Convert Currency</button>
+                    <button onclick="showExchangeRates()">View All Rates</button>
+                    
+                    <div class="currency-result" id="currencyResult"></div>
+                    <div class="exchange-rates" id="exchangeRates"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cryptocurrency Tools -->
+        <div id="crypto" class="tab-content">
+            <div class="calc-section">
+                <h2>Cryptocurrency Calculator</h2>
+                <div class="crypto-tools">
+                    <div class="crypto-converter">
+                        <h3>Crypto Price Converter</h3>
+                        <div class="crypto-inputs">
+                            <input type="number" id="cryptoAmount" placeholder="Amount" value="1">
+                            <select id="cryptoFrom">
+                                <option value="bitcoin">Bitcoin (BTC)</option>
+                                <option value="ethereum">Ethereum (ETH)</option>
+                                <option value="cardano">Cardano (ADA)</option>
+                                <option value="polkadot">Polkadot (DOT)</option>
+                                <option value="chainlink">Chainlink (LINK)</option>
+                            </select>
+                            <span>to</span>
+                            <select id="cryptoTo">
+                                <option value="usd">USD</option>
+                                <option value="eur">EUR</option>
+                                <option value="btc">BTC</option>
+                                <option value="eth">ETH</option>
+                            </select>
+                            <button onclick="convertCrypto()">Convert</button>
+                        </div>
+                        <div class="crypto-result" id="cryptoResult"></div>
+                    </div>
+                    
+                    <div class="profit-loss-calculator">
+                        <h3>Profit/Loss Calculator</h3>
+                        <div class="pnl-inputs">
+                            <div class="input-group">
+                                <label>Buy Price:</label>
+                                <input type="number" id="buyPrice" placeholder="Entry price">
+                            </div>
+                            <div class="input-group">
+                                <label>Current Price:</label>
+                                <input type="number" id="currentPrice" placeholder="Current price">
+                            </div>
+                            <div class="input-group">
+                                <label>Quantity:</label>
+                                <input type="number" id="quantity" placeholder="Amount held">
+                            </div>
+                            <button onclick="calculatePnL()">Calculate P&L</button>
+                        </div>
+                        <div class="pnl-result" id="pnlResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Physics -->
+        <div id="advanced-physics" class="tab-content">
+            <div class="calc-section">
+                <h2>Advanced Physics Calculations</h2>
+                <div class="advanced-physics-section">
+                    <select id="physicsCategory">
+                        <option value="mechanics">Classical Mechanics</option>
+                        <option value="electromagnetism">Electromagnetism</option>
+                        <option value="thermodynamics">Thermodynamics</option>
+                        <option value="quantum">Quantum Physics</option>
+                        <option value="relativity">Relativity</option>
+                        <option value="waves">Waves & Oscillations</option>
+                    </select>
+                    
+                    <div id="mechanicsInputs" class="physics-inputs">
+                        <h3>Classical Mechanics</h3>
+                        <div class="calculation-type">
+                            <select id="mechanicsType">
+                                <option value="projectile">Projectile Motion</option>
+                                <option value="circular">Circular Motion</option>
+                                <option value="pendulum">Pendulum</option>
+                                <option value="collision">Collision</option>
+                            </select>
+                        </div>
+                        <div id="mechanicsParams" class="physics-params"></div>
+                        <button onclick="calculateAdvancedPhysics()">Calculate</button>
+                    </div>
+                    
+                    <div class="physics-result" id="advancedPhysicsResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chemistry Database -->
+        <div id="chemistry-db" class="tab-content">
+            <div class="calc-section">
+                <h2>Periodic Table & Chemistry Tools</h2>
+                <div class="chemistry-section">
+                    <div class="periodic-table-container">
+                        <h3>Interactive Periodic Table</h3>
+                        <div id="periodicTable" class="periodic-table"></div>
+                        <div class="element-info" id="elementInfo">
+                            <h4>Element Information</h4>
+                            <p>Click on an element to see its properties</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chemistry-calculators">
+                        <div class="chem-calc">
+                            <h3>Molecular Weight Calculator</h3>
+                            <input type="text" id="molecularFormula" placeholder="H2SO4">
+                            <button onclick="calculateMolecularWeight()">Calculate</button>
+                            <div id="molWeightResult"></div>
+                        </div>
+                        
+                        <div class="chem-calc">
+                            <h3>Solution Calculator</h3>
+                            <div class="solution-inputs">
+                                <input type="number" id="moles" placeholder="Moles">
+                                <input type="number" id="volume" placeholder="Volume (L)">
+                                <button onclick="calculateMolarity()">Molarity</button>
+                                <button onclick="calculateDilution()">Dilution</button>
+                            </div>
+                            <div id="solutionResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Graphs -->
+        <div id="3d-graphs" class="tab-content">
+            <div class="calc-section">
+                <h2>3D Function Plotter</h2>
+                <div class="threejs-plotting-section">
+                    <div class="threejs-function-inputs">
+                        <div class="input-group">
+                            <label>Function z = f(x,y):</label>
+                            <input type="text" id="function3D" placeholder="x*x + y*y" value="x*x + y*y">
+                        </div>
+                        
+                        <div class="range-inputs">
+                            <div class="range-group">
+                                <label>X Range:</label>
+                                <input type="number" id="xMin3D" value="-5" placeholder="Min">
+                                <input type="number" id="xMax3D" value="5" placeholder="Max">
+                            </div>
+                            <div class="range-group">
+                                <label>Y Range:</label>
+                                <input type="number" id="yMin3D" value="-5" placeholder="Min">
+                                <input type="number" id="yMax3D" value="5" placeholder="Max">
+                            </div>
+                        </div>
+                        
+                        <div class="plot-controls">
+                            <button onclick="plot3DFunction()">Plot 3D Surface</button>
+                            <button onclick="plot3DWireframe()">Wireframe</button>
+                            <button onclick="plot3DContour()">Contour Plot</button>
+                        </div>
+                    </div>
+                    
+                    <div id="threeDContainer" class="threejs-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Tools -->
+        <div id="export" class="tab-content">
+            <div class="calc-section">
+                <h2>Export & Save Tools</h2>
+                <div class="export-section">
+                    <div class="export-calculations">
+                        <h3>Export Calculations</h3>
+                        <div class="export-options">
+                            <button onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> Export to PDF</button>
+                            <button onclick="exportToCSV()"><i class="fas fa-file-csv"></i> Export to CSV</button>
+                            <button onclick="exportToImage()"><i class="fas fa-image"></i> Export as Image</button>
+                            <button onclick="printCalculations()"><i class="fas fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculation-history">
+                        <h3>Calculation History</h3>
+                        <div class="history-controls">
+                            <button onclick="clearHistory()">Clear History</button>
+                            <button onclick="saveToLocal()">Save to Browser</button>
+                            <button onclick="loadFromLocal()">Load from Browser</button>
+                        </div>
+                        <div id="calculationHistory" class="history-display"></div>
+                    </div>
+                    
+                    <div class="share-tools">
+                        <h3>Share Results</h3>
+                        <div class="share-options">
+                            <button onclick="generateShareLink()"><i class="fas fa-link"></i> Generate Link</button>
+                            <button onclick="shareToEmail()"><i class="fas fa-envelope"></i> Email Results</button>
+                            <button onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+                        </div>
+                        <div id="shareResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Supercalc</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
